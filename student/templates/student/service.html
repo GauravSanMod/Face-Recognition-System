@@ -1,0 +1,99 @@
+{% extends "student/base.html" %}
+{% block title %} Services {% endblock %}
+{% block body %}
+ <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Services</h2>
+          <p> Currently, we are serving two main service which are as follows:</p>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="fas fa-check-circle"></i></div>
+              <h4><a href="">Attendance System</a></h4>
+              <p> Automatic detection of student faces and marking there attendance</p>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-file"></i></div>
+              <h4><a href="">Criminal Detection</a></h4>
+              <p> Surveillance system which will detect for criminals. </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Frequently Asked Questions</h2>
+          <p>Some frequently asked questions are answered below hope it will be helpful if have any queries contact me form is provided at site Thank You.</p>
+        </div>
+
+        <div class="faq-list">
+          <ul>
+            <li data-aos="fade-up" data-aos-delay="100">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1"> How Face Recognition Works? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
+                <p>
+                  Face Detection: Initially, faces need to be detected within an image. Dlib provides a pre-trained face detection model for this purpose. This model is capable of locating faces within an image.
+                  <br>
+                  Face Alignment: Once faces are detected, it's common to align them to a standard pose to reduce variations caused by different head poses, lighting conditions, etc. Dlib provides tools for facial landmark detection, which can be used to align faces.
+                   <br>
+                  Feature Extraction: After alignment, relevant features are extracted from each face. These features may include descriptors that capture the unique characteristics of each face. Dlib's face recognition module provides methods to compute face descriptors.
+                   <br>
+                  Face Encoding: The extracted features are encoded into a compact representation suitable for comparison. These encodings are typically vectors of numerical values.
+                   <br>
+                  Face Matching: Given a set of encoded face descriptors (which can be considered as templates), face recognition involves matching a query face against these templates. This matching can be done using various algorithms such as Euclidean distance, cosine similarity, etc.
+                   <br>
+                  Recognition Decision: Based on the similarity score or distance measure between the query face and the templates, a decision is made whether the query face matches any of the known faces. This decision might involve setting a threshold above which faces are considered a match.
+                 </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="200">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed"> Which Model Stack Is Used In This Project? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  face_recognition <br>
+                  dlib <br>
+                  openCV-python <br>
+                  cmake <br>
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="300">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed"> How to use it? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Its Extremely ease to use it just follow the instruction or read the readme file provided at footer section for uses..
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="400">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-4" class="collapsed"> Idea behind the project? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-4" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Idea behind the project is very simple using AI reduce the human efforts as possible. Monitoring and Surveillance is difficult to human to keep an eye 24/7 why wont we use AI for it..
+                </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </section><!-- End Frequently Asked Questions Section -->
+{% endblock %}

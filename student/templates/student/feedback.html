@@ -1,0 +1,159 @@
+{% extends "student/base.html" %}
+{% block title %} Feedback {% endblock %}
+{% load static %}
+{% block add %}
+<style>
+.feedback {
+  text-align: center;
+  margin-left: 40%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+}
+
+h2 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+textarea {
+  resize: vertical;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#ratingStars {
+  margin-bottom: 10px;
+}
+
+.star {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.star i {
+  transition: color 0.3s;
+}
+
+.star:hover i,
+.star.active i {
+  color: #ffcc00;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-+4zsjb5S1Nlw3NAWCaiob5n0Jy6mS1KSkFz+KPsdXxJ0I+N3+NbcngdIw+dEfLkT" crossorigin="anonymous">
+{% endblock %}
+{% block body %}
+<br><br><br><br>
+    <div class="feedback">
+      <h2>FEEDBACK FORM</h2>
+      <form id="feedbackForm" action="{% url 'feedback' %}" method="POST">
+        {% csrf_token %}
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" cols="50"></textarea>
+
+        <label for="ratingStars">Rating:</label>
+        <div id="ratingStars">
+          <input type="hidden" id="ratingInput" name="rating">
+          <span class="star" data-value="1"><i class="fas fa-star"></i></span>
+          <span class="star" data-value="2"><i class="fas fa-star"></i></span>
+          <span class="star" data-value="3"><i class="fas fa-star"></i></span>
+          <span class="star" data-value="4"><i class="fas fa-star"></i></span>
+          <span class="star" data-value="5"><i class="fas fa-star"></i></span>
+        </div>
+
+        <button type="submit" value="submit">Submit</button>
+      </form>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const stars = document.querySelectorAll(".star");
+  const ratingInput = document.getElementById("ratingInput");
+
+  stars.forEach(function(star) {
+    star.addEventListener("click", function() {
+      const value = parseInt(star.getAttribute("data-value"));
+      ratingInput.value = value;
+      stars.forEach(function(s, index) {
+        if (index < value) {
+          s.classList.add("active");
+        } else {
+          s.classList.remove("active");
+        }
+      });
+    });
+  });
+
+  const feedbackForm = document.getElementById("feedbackForm");
+
+  feedbackForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const description = document.getElementById("description").value;
+    const rating = ratingInput.value;
+
+    // You can now send the description and rating to your server or process it further.
+    console.log("Description:", description);
+    console.log("Rating:", rating);
+
+    const formData = new FormData();
+    formData.append('description', description);
+    formData.append('rating', rating);
+
+    fetch('{% url "feedback" %}', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        alert('Feedback submitted successfully');
+      } else {
+        console.error('Failed to submit feedback');
+        // Optionally, you can handle errors here
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+    // Reset the form
+    feedbackForm.reset();
+    stars.forEach(function(star) {
+      star.classList.remove("active");
+    });
+  });
+});
+
+</script>
+{% endblock %}

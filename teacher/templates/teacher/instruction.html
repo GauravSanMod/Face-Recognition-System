@@ -1,0 +1,52 @@
+{% extends "teacher/base.html" %}
+{% block title %}Attendance Instructions{% endblock %}
+{% block add %}
+  <!-- Additional CSS for the instruction page -->
+  <link href="static/teacher/css/style.css" rel="stylesheet">
+<style>
+  .Description{
+
+  }
+</style>
+{% endblock %}
+{% block body %}
+<section id="attendance-instructions" class="attendance-instructions">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Attendance Instructions</h2>
+      <p>Follow these instructions before taking attendance.</p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="instruction-item" data-aos="zoom-in" data-aos-delay="100">
+          <img src="static/teacher/images/instruction.jpg" class="img-fluid" alt="Instruction Image 1">
+          <h3>Step 1: Position Your Face</h3>
+          <p>Place your face in the center of the frame. Ensure there are no obstructions covering your face.</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="instruction-item" data-aos="zoom-in" data-aos-delay="200">
+          <img src="static/teacher/images/face_cover.jpg" class="img-fluid" width="400" alt="Instruction Image 2">
+          <h3>Step 2: Please remove face covering.</h3>
+          <p>Ensure the area is well-lit and your face is clearly visible to the camera.</p>
+        </div>
+      </div>
+      <div class="instruction-item" data-aos="zoom-in" data-aos-delay="200">
+          <h3>Ready to Take Attendance?</h3>
+          <p>Follow the instructions above and click the "Start" button when you're ready.</p>
+            <form method="post" action="{% url 'take_attendance' %}">
+                {% csrf_token %}
+                <fieldset class="topics-fieldset">
+                  <legend class="legend-border">Topics Covered</legend>
+                  <textarea name="topics_covered" rows="3" cols="40" required></textarea>
+                </fieldset>
+              <br>
+              <button class="start-button pulse" type="submit">Start Attendance</button>
+            </form>
+      </div>
+    </div>
+  </div>
+</section><!-- End Attendance Instructions Section -->
+
+{% endblock %}

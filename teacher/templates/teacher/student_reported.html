@@ -1,0 +1,112 @@
+{% extends "teacher/base.html" %}
+{% block title %}Reported Attendance{% endblock %}
+{% block add %}
+  <style>
+    /* View Attendance */
+    .viewatt {
+      margin-top:72px;
+      height:auto;
+      width:100%;
+      background-color:lavender;
+    }
+    .viewatt h1 {
+      padding-top:20px;
+      padding-bottom:20px;
+      text-align:center;
+      color: #483d8b;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 100px;
+        margin-left:50px;
+    }
+
+    th, td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        color:black;
+    }
+
+    img {
+        width: 100%;
+        max-width: 60px;
+        height: auto;
+    }
+    .approve-btn, .reject-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.reject-btn{
+    background-color:red;
+}
+
+.approve-btn:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+}
+.reject-btn:hover {
+    background-color:red;
+    border-color:red;
+}
+
+.approve-btn:focus, .reject-btn:focus {
+    outline: none;
+}
+
+  </style>
+{% endblock %}
+{% block body %}
+<div class="viewatt">
+  <h1> Reported Student Attendance Record</h1>
+  {% if data %}
+    <table>
+    <thead>
+        <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Reported Status</th>
+            <th>Image</th>
+            <th>Approve/Reject</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for roll_no, info in data.items %}
+            <tr>
+                <td>{{ roll_no }}</td>
+                <td>{{ info.name }}</td>
+                <td>{{ info.date }}</td>
+                <td>{{ info.status }}</td>
+                <td><img src="{{ info.image_url }}" alt="{{ info.name }}"></td>
+                <td>
+                 <form method="post" action="{% url 'student_reported' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="roll_no" value="{{ roll_no }}">
+                    <input type="hidden" name="date" value="{{ info.date }}">
+                    <input type="hidden" name="status" value="{{ info.status }}">
+                    <button type="submit" class="approve-btn" name="action" value="approve">Approve</button>
+                    <button type="submit" class="reject-btn" name="action" value="reject">Reject</button>
+                 </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+    {% else %}
+    <h2 style="text-align:center">No Data Found As of Now</h2>
+    {% endif %}
+</div>
+{% endblock %}

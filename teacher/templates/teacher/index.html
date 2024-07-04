@@ -1,0 +1,23 @@
+{% extends "teacher/base.html" %}
+{% block title %} Teacher Index {% endblock %}
+{% block add %}
+  <!-- Additional CSS for the instruction page -->
+  <link href="static/teacher/css/style.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<section id="stud-index" class="stud-index d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center">
+          <h1 data-aos="fade-up">We offer modern solutions for Attendance Systems with Face Recognition.</h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">Welcome to my site now attendance become easier with us hope you like. </h2>
+        </div>
+        <div class="col-lg-6 stud-index-img" data-aos="zoom-out" data-aos-delay="200">
+          <img src="static/student/images/index.png" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End stud-index -->
+{% endblock %}

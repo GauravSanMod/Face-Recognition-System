@@ -1,0 +1,81 @@
+{% extends "customAdmin/base.html" %}
+{% block title %} Add Police {% endblock %}
+{% block style %}
+        .police {
+            max-width: 500px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left:390px;
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        input[type="checkbox"] {
+            margin-top: 15px;
+        }
+        button {
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+{% endblock %}
+{% block body %}
+{% load static %}
+    <div class="police">
+        <h2> Add Police</h2>
+        <form id="criminalForm" action="{% url 'add_police' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label for="police_id">Police ID</label>
+            <input type="number" id="police_id" name="police_id" required>
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="number">Number</label>
+            <input type="number" id="number" name="number" maxlength="10" required>
+
+            <label for="address">Address</label>
+            <textarea id="address" name="address"></textarea>
+
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="photo">Photo</label>
+            <input type="file" name="photo" class="photo" id="photo" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+
+</html>

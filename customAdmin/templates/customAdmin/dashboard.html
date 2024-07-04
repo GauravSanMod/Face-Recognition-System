@@ -1,0 +1,104 @@
+{% extends "customAdmin/base.html" %}
+{% block title %} Dashboard {% endblock %}
+{% block style %}
+ img {
+     width: 100%;
+     max-width: 60px;
+     height: auto;
+ }
+{% endblock %}
+{% block body %}
+
+            <!-- Cards -->
+            <div class="cardBox">
+                <div class="card">
+                    <div class="cardDetails">
+                        <div class="numbers">{{ stud_count }}</div>
+                        <div class="cardName">Students</div>
+                    </div>
+                    <div class="iconBx">
+                        <img width="68" height="68" src="https://img.icons8.com/color/48/student-male--v1.png" alt="student-male--v1"/>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="cardDetails">
+                        <div class="numbers">{{ tech_count }}</div>
+                        <div class="cardName">Teacher</div>
+                    </div>
+                    <div class="iconBx">
+                       <img width="68" height="68" src="https://img.icons8.com/plasticine/100/teacher.png" alt="teacher"/>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="cardDetails">
+                        <div class="numbers">{{ crim_count }}</div>
+                        <div class="cardName">Criminal</div>
+                    </div>
+                    <div class="iconBx">
+                        <img width="64" height="64" src="https://img.icons8.com/external-icongeek26-linear-colour-icongeek26/64/external-criminal-police-icongeek26-linear-colour-icongeek26.png" alt="external-criminal-police-icongeek26-linear-colour-icongeek26"/>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="cardDetails">
+                        <div class="numbers">5</div>
+                        <div class="cardName">Police</div>
+                    </div>
+                    <div class="iconBx">
+                        <img width="66" height="66" src="https://img.icons8.com/color/96/policeman-male--v1.png" alt="policeman-male--v1"/>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Details -->
+            <div class="details">
+                <!-- Order Details List -->
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Students</h2>
+                        <a href="{% url 'admin_student' %}" class="btn">View All</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Roll No</td>
+                                <td>Name</td>
+                                <td>Email</td>
+                                <td>Image</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                            <tr>
+                                <td>{{ student.roll_no }}</td>
+                                <td>{{ student.name }}</td>
+                                <td>{{ student.email }}</td>
+                                <td><img src="{{ student.image_url }}" alt="{{ student.name }}"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- New Customers -->
+                <div class="recentCustomers">
+                    <div class="cardHeader">
+                        <h2>Teachers</h2>
+                    </div>
+                    <table>
+                        {% for t in teachers %}
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="{{ t.image_url }}" alt="{{ t.name }}"></div>
+                            </td>
+                            <td>
+                                <h4>{{ t.name }}<br><span>{{ t.teacher_id }}</span></h4>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Code -->
+{%endblock%}

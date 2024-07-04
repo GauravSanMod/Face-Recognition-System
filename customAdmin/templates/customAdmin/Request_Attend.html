@@ -1,0 +1,78 @@
+{% extends "customAdmin/base.html" %}
+{% block title %} Request-Update {% endblock %}
+{% block style %}
+.head{
+    margin-top: 100px;
+    text-align:center;
+    margin-bottom: 30px;
+}
+.date-box {
+    background-color: lavender;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 150px 10px 20px;
+    margin-bottom: 20px;
+    width: calc(33.33% - 40px); /* Adjust width and margin as needed */
+    margin-right: 10px;
+    margin-left: 20px;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.roll-box {
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 1px;
+    margin-top: 10px;
+}
+.roll-box .one {
+    padding-left:20px;
+}
+.roll-box .two {
+    padding-left:50px;
+}
+
+.update-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left:100px;
+}
+
+.update-button:hover {
+    background-color: #0056b3;
+}
+
+{% endblock %}
+{% block body %}
+    <div class="head">
+        <h1>Attendance Record To Update </h1>
+    </div>
+    {% for date, roll_numbers in data.items %}
+    <div class="date-box">
+        <h3>{{ date }}</h3>
+        {% for roll, info in roll_numbers.items %}
+            <div class="roll-box">
+                <form method="POST" action="{% url 'update_Attend' %}">
+                    {% csrf_token %}
+                    <p class="one">Roll No: {{ roll }}</p>
+                    <input type="hidden" name="date" value="{{date}}">
+                    <input type="hidden" name="id" value="{{id}}">
+                    <input type="hidden" name="roll_no" value="{{roll}}">
+                    <input type="hidden" name="status" value="{{info.status}}">
+                    <p class="two">Status: {{ info.status }}</p>
+                    <button type="submit" class="update-button">Update</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+
+
+{% endblock %}

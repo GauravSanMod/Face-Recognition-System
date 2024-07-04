@@ -1,0 +1,61 @@
+{% extends "home/base.html" %}
+{% block title %} Index {% endblock %}
+{% block body %}
+{% block additional %}
+<style>
+.feedback{
+  margin: 20px;
+  display: flex;
+}
+.feedback-item {
+    box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);
+    padding: 50px 30px;
+    transition: all ease-in-out 0.4s;
+    background: lavender;
+    margin-left: 20px;
+}
+.filled {
+   color: gold;
+}
+.empty {
+   color: lightgray;
+}
+</style>
+{% endblock %}
+{% load static %}
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+          <h1>Best Solution For All Face Recognition Tasks</h1>
+          <h2>Using Face Recognition Library having 99.37% accuracy..</h2>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="static/home/img/hero-img.png" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+    <div class="feedback">
+        {% for info in data %}
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="feedback-item">
+              <h4><a href="">{{ info.name }}</a></h4>
+              <p>{{ info.description }}</p>
+              <p>
+                  {% for star in info.stars %}
+                    {% if star == 'filled' %}
+                        <i class="fas fa-star filled"></i>
+                    {% else %}
+                        <i class="far fa-star empty"></i>
+                    {% endif %}
+                {% endfor %}
+              </p>
+            </div>
+          </div>
+      {% endfor%}
+    </div>
+
+{% endblock %}

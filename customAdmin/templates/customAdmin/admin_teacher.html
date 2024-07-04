@@ -1,0 +1,318 @@
+{% extends "customAdmin/base.html" %}
+{% block title %} Admin-Teacher {% endblock %}
+{% block style %}
+
+.student {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: flexbox;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    /* margin-top: 10px; */
+}
+
+.student .stud_data {
+    position: relative;
+    min-height: 500px;
+    display: flexbox;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.student .stud_head {
+    display: flexbox;
+    justify-content: space-between;
+}
+
+.student .stud_head h2 {
+    font-weight: 600;
+    text-align: center;
+    color: var(--blue);
+}
+
+.student .stud_head .btn {
+    position: relative;
+    padding: 5px 10px;
+    color: var(--white);
+    background: var(--blue);
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+.student table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.student table thead td {
+    font-weight: 600;
+}
+
+.student .stud_data table tr {
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.student .stud_data table tr:last-child {
+    border-bottom: none;
+}
+
+.student .stud_data table tbody tr:hover {
+    background: var(--blue);
+    color: var(--white);
+}
+
+.student .stud_data table tr td {
+    padding: 10px;
+}
+
+.student .stud_data table tr td:last-child,
+.student .stud_data table tr td:nth-child(2) {
+    text-align: center;
+}
+
+.student .stud_data table tr td:nth-child(3),
+.student .stud_data table tr td:nth-child(4) {
+    text-align: center;
+}
+
+.student .stud_data table tr td:nth-child(5) {
+    text-align: center;
+    padding:0px;
+}
+.student .stud_data table tr td:nth-child(6) {
+    text-align: center;
+}
+img {
+     width: 100%;
+     max-width: 80px;
+     height: auto;
+}
+
+
+.button-85 {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-85:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.button-85:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+.delete-button {
+  background-color: #f44336; /* Red */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f; /* Darker Red */
+}
+
+.confirm-delete-message {
+  display: none;
+  color: #f44336; /* Red */
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.view {
+  text-decoration: none;
+  position: relative;
+  border: none;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  color: #fff;
+  width: 7em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 200%;
+  border-radius: 30px;
+  z-index: 1;
+}
+
+.view:hover {
+  animation: ani 8s linear infinite;
+  border: none;
+}
+
+@keyframes ani {
+  0% {
+    background-position: 0%;
+  }
+
+  100% {
+    background-position: 400%;
+  }
+}
+
+.view:before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 400%;
+  border-radius: 35px;
+  transition: 1s;
+}
+
+.view:hover::before {
+  filter: blur(20px);
+}
+
+.view:active {
+  background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+}
+
+
+{% endblock %}
+{% block body %}
+    <div class="student">
+                <!-- Order Details List -->
+                <div class="stud_data">
+                    <div class="stud_head">
+                        <h2>Teacher's</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Teacher ID</td>
+                                <td>Name</td>
+                                <td>Email</td>
+                                <td>Image</td>
+                                <td>Update Profile</td>
+                                <td>Delete Teacher</td>
+                                <td>View Request</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for id, info in data.items %}
+                            <tr>
+                                <td>{{ id }}</td>
+                                <td>{{ info.name }}</td>
+                                <td>{{ info.email }}</td>
+                                <td><img src="{% url 'serve_teacher_image' teacher_id=id %}" alt="{{ info.name }}"></td>
+                                <td>
+                                  <form action="{% url 'update_teacher' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="id" value="{{ id }}">
+                                    <button type="submit" class="button-85" role="button" name="update">Update</button>
+                                  </form>
+                                </td>
+                                <td>
+                                  <form action="{% url 'delete_teacher' %}" method="POST" id="delete-form">
+                                    {% csrf_token %}
+                                      <input type="hidden" name="id" value="{{ id }}">
+                                    <button type="button" class="delete-button" onclick="confirmDelete('{{ id }}')">Delete</button>
+                                    <div class="confirm-delete-message" style="display:none;">Are you sure you want to delete this item?</div>
+                                  </form>
+                                </td>
+                                {% for key, status in report.items %}
+                                {% if key == id and status == True %}
+                                <td>
+                                    <form action="{% url 'view_request' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{ id }}">
+                                        <button type="submit" class="view">View Request</button>
+                                    </form>
+                                </td>
+                                {%endif%}
+                                {%endfor%}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+    </div>
+<script>
+   function confirmDelete(id) {
+  var confirmation = confirm("Are you sure you want to delete the student with teacher ID:- " + id + "?");
+  if (confirmation) {
+    // Assuming the form has a ID 'delete-form'
+    document.querySelector('#delete-form input[name="id"]').value = id;
+    document.querySelector('#delete-form').submit();
+  }
+}
+
+</script>
+{%endblock%}

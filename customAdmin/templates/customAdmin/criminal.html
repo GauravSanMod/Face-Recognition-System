@@ -1,0 +1,357 @@
+{% extends "customAdmin/base.html" %}
+{% block title %} Criminal {% endblock %}
+{% block style %}
+
+.student {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: flexbox;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    /* margin-top: 10px; */
+}
+
+.student .stud_data {
+    position: relative;
+    min-height: 500px;
+    display: flexbox;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.student .stud_head {
+    display: flexbox;
+    justify-content: space-between;
+}
+
+.student .stud_head h2 {
+    font-weight: 600;
+    text-align: center;
+    color: var(--blue);
+}
+
+.student .stud_head .btn {
+    position: relative;
+    padding: 5px 10px;
+    color: var(--white);
+    background: var(--blue);
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+.student table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.student table thead td {
+    font-weight: 600;
+}
+
+.student .stud_data table tr {
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.student .stud_data table tr:last-child {
+    border-bottom: none;
+}
+
+.student .stud_data table tbody tr:hover {
+    background: var(--blue);
+    color: var(--white);
+}
+
+.student .stud_data table tr td {
+    padding: 10px;
+}
+
+.student .stud_data table tr td:last-child,
+.student .stud_data table tr td:nth-child(2) {
+    text-align: center;
+}
+
+.student .stud_data table tr td:nth-child(3),
+.student .stud_data table tr td:nth-child(4) {
+    text-align: center;
+}
+
+.student .stud_data table tr td:nth-child(5) {
+    text-align: center;
+    padding:0px;
+}
+.student .stud_data table tr td:nth-child(6) {
+    text-align: center;
+}
+img {
+     width: 100%;
+     max-width: 100px;
+     height: auto;
+}
+
+
+.button-85 {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-bottom:20px;
+}
+
+.button-85:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+ form {
+            max-width: 300px;
+            margin-left: 100px;;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, input[type="number"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+.loading {
+            display: none;
+            text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header {
+    margin-right: 100px;
+}
+
+.content {
+    margin-left:100px;
+}
+
+.start-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+}
+
+.start-button:hover {
+    background-color: #0056b3;
+}
+
+
+{% endblock %}
+{% block body %}
+<body onload="getLocation()">
+    <div class="student">
+        <div class="container">
+            <div class="content">
+                <h1>Select Data Fetch Method</h1>
+                <form method="post" action="{% url 'fetch_data' %}" id="dataFetchForm">
+                    {% csrf_token %}
+                    <label for="method">Choose a method:</label>
+                    <select id="method" name="method" required>
+                        <option value="manual">Manually</option>
+                        <option value="api">API</option>
+                    </select>
+
+                    <div id="end_count_input" style="display: none;">
+                        <label for="end_count">End Count:</label>
+                        <input type="number" id="end_count" name="end_count" min="550" max="2000">
+                    </div>
+                    <button type="submit" class="button-85" role="button" name="update">Proceed</button>
+                </form>
+            </div>
+            <div class="header">
+                <h1>Start Identification</h1>
+                <form method="post" action="{% url 'start_identify' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="button-85" role="button" name="update">Start</button>
+                </form>
+            </div>
+        </div>
+        <div class="loading" id="loadingMessage">
+            <i class="fas fa-spinner fa-spin"></i> <!-- This will display a spinning circle -->
+            <!-- You can customize the loading spinner by changing the FontAwesome classes -->
+            <p>Loading, please wait...</p>
+        </div>
+                <!-- Order Details List -->
+                <div class="stud_data">
+                    <div class="stud_head">
+                        <h2>Criminals</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Wanted ID</td>
+                                <td>Name</td>
+                                <td>Aliases</td>
+                                <td>Parentage</td>
+                                <td>Image</td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, info in data.items %}
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td>{{ info.Name }}</td>
+                                <td>{{ info.Aliases }}</td>
+                                <td>{{ info.Parentage }}</td>
+                                <td><img src="{% url 'serve_criminal_image' wanted_id=key photo=info.Photo %}" alt="{{ info.Name }}"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var methodSelect = document.getElementById('method');
+        var endCountInput = document.getElementById('end_count_input');
+        var form = document.getElementById('dataFetchForm');
+        var loadingMessage = document.getElementById('loadingMessage');
+
+        methodSelect.addEventListener('change', function () {
+            if (methodSelect.value === 'api') {
+                endCountInput.style.display = 'block';
+            } else {
+                endCountInput.style.display = 'none';
+            }
+        });
+
+       document.getElementById('dataFetchForm').addEventListener('submit', function () {
+            loadingMessage.style.display = 'block';
+        });
+    });
+
+         function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(sendPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function sendPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const location = `${latitude},${longitude}`;
+
+            fetch('/save-location/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ location: location })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+{% endblock %}
