@@ -21,7 +21,6 @@ cssselect==1.2.0
 cssutils==2.9.0
 cvzone==1.6.1
 Django==5.0.1
-dlib==19.22.1
 dnspython==2.6.1
 ecdsa==0.18.0
 emails==0.5.15
