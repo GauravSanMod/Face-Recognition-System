@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-%9s3kn+x!^h!vf7ci#(hf8w*%t2r+1-@m!y8%2tj7uirkp4plg"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -96,8 +96,16 @@ DATABASES = {
     }
 }
 
+# Get the Firebase credentials JSON string from an environment variable
+firebase_cred_json = os.getenv('FIREBASE_CRED_JSON')
+
+if firebase_cred_json:
+    firebase_config = json.loads(firebase_cred_json)
+else:
+    firebase_config = None
+
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("main/facerecoginitonsystem-firebase-adminsdk-bmyi0-529f7ce1e1.json")
+cred = credentials.Certificate(firebase_config)
 firebase_admin.initialize_app(cred, {
     "databaseURL": "https://facerecoginitonsystem-default-rtdb.firebaseio.com/",
     "storageBucket": "facerecoginitonsystem.appspot.com"
